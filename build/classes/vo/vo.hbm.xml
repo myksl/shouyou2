@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-mapping package="vo">
+
+	<class name ="User" table="user">
+		<id name="name">
+		
+		</id>
+		<property name ="password"/>
+		<property name ="qq"/>
+		<property name ="phone"/>
+	</class>
+	
+	<class name ="Product" table="product">
+		<id name="listIndex">
+			<generator class="native"/>
+		</id>
+		<property name="sellNumber"/>
+		<property name="system"/>
+		<property name="productName"/>
+		<property name="level"/>
+		<property name="game"/>
+		<property name="own"/>
+		<property name="price"/>
+		<property name="account"/>
+		<property name="password"/>
+		<property name="information"/>
+		<property name="remaining"/>
+	</class>
+		<class name ="BuyOrder" table="buyOrder">
+		<id name="listIndex">
+			<generator class="native"/>
+		</id>
+
+		<property name="system"/>
+		<property name="time"/>
+		<property name="orderName"/>
+		<property name="level"/>
+		<property name="game"/>
+		<property name="own"/>
+		<property name="productListIndex"/>
+		<property name="password"/>
+		<property name="account"/>
+		<property name="price"/>
+		<property name="information"/>
+		<property name="sellNumber"/>
+		<property name="state"/>
+
+	</class>
+			<class name ="SellOrder" table="sellOrder">
+		<id name="listIndex">
+			<generator class="native"/>
+		</id>
+
+		<property name="system"/>
+		<property name="time"/>
+		<property name="productListIndex"/>
+		<property name="orderName"/>
+		<property name="level"/>
+		<property name="game"/>
+		<property name="own"/>
+		<property name="price"/>
+		<property name="information"/>
+		<property name="sellNumber"/>
+		<property name="state"/>
+
+	</class>
+	<class name ="Chat" table="kefu">
+			<id name="User">
+			</id>
+			<property name="text"/>
+		</class>
+</hibernate-mapping>

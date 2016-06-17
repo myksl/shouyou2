@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.convention.result.path" value="/"/>
+	<constant name="struts.ui.theme" value="simple"></constant> 
+	<package name = "action" extends = "struts-default" >
+		<interceptors>
+			<interceptor name="session" class="sessionInterceptor"></interceptor>
+		</interceptors>
+		<action name="register" class="login" method="register">
+			<result name="success">geRenZhongXin.jsp</result>
+			<result name ="input">register.jsp</result>
+		</action>
+		<action name="login" class="login" method="login">
+			<result name="success">geRenZhongXin.jsp</result>
+			<result name ="input">login.jsp</result>
+		</action>
+		<action name="Sell" class= "sell" method="sell">
+			<result name="success">showProduct.jsp</result>
+			<result name ="input">sell.jsp</result>
+			<result name="login">login.jsp</result>
+			<interceptor-ref name="session"></interceptor-ref>
+		</action>
+		<action name="UpdateProduct" class= "sell" method="update">
+			<result name="success">showProduct.jsp</result>
+			<result name ="sell">sell.jsp</result>
+			<result name="login">login.jsp</result>
+		</action>
+		<action name="DeleteProduct" class= "sell" method="delete">
+			<result name="success">showProduct.jsp</result>
+			<result name ="sell">showSellOrder.jsp</result>
+			<result name="login">login.jsp</result>
+		</action>
+		<action name="Buy" class= "buy" method="buy">
+			<result name="success">showBuyOrder.jsp</result>
+			<result name ="fail">sell.jsp</result>
+			<result name="login">login.jsp</result>
+			<interceptor-ref name="session"></interceptor-ref>
+		</action>
+		<action name="sendMessages" class="server" method="sendMessages">
+			<result name="success">content.jsp</result>
+		</action>
+		<action name="getMessages" class="server" method="getMessages">
+			<result name="success">content.jsp</result>
+		</action>
+		<action name="KsendMessages" class="kServer" method="sendMessages">
+			<result name="success">content.jsp</result>
+		</action>
+		<action name="KgetMessages" class="kServer" method="getMessages">
+			<result name="success">content.jsp</result>
+		</action>
+		<action name="leave" class="server" method="leave">
+			<result name="success">index.jsp</result>
+		</action>
+	</package>
+	
+</struts>

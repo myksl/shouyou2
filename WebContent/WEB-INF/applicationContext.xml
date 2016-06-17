@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       	<!-- Action -->
+	<bean id="login" class="action.Login" scope="prototype">
+		<property name="userProxy" ref="userProxy"></property>
+	</bean>
+	<bean id="buy" class="action.Buy" scope="prototype">
+		<property name="productProxy" ref="productProxy"/>
+		<property name="sellOrderProxy" ref="sellOrderProxy"/>
+		<property name="buyOrderProxy" ref="buyOrderProxy"/>
+		<property name="product" ref="product"></property>
+	</bean>
+	<bean id="server" class="action.Server" scope="prototype">
+		<property name="chatProxy" ref="chatProxy"/>
+	</bean>
+	<bean id="kServer" class="action.KServer" scope="prototype">
+		<property name="chatProxy" ref="chatProxy"/>
+	</bean>
+	<bean id="sell" class="action.Sell" scope="prototype">
+		<property name="productProxy" ref="productProxy"></property>
+		<property name="product" ref="product"></property>
+	</bean>
+	<bean id="sessionInterceptor" class="interceptor.SessionInterceptor" scope="prototype">
+	</bean>
+	<!-- 数据库执行类 -->
+	<bean id="userHow" class="dao.UserHow">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean> 
+	<bean id="sellOrderHow" class="dao.SellOrderHow">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean> 
+	<bean id="buyOrderHow" class="dao.BuyOrderHow">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean> 
+	<bean id="productHow" class="dao.ProductHow">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean> 
+	<bean id="chatHow" class="dao.ChatHow">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean> 
+	
+	<!-- 代理类及工厂 -->
+	<bean id="userProxy" class="dao.UserProxy">
+		<property name="userHow" ref="userHow"></property>
+	</bean>
+	<bean id="userFactory" class="factory.UserFactory">
+		<property name="proxy" ref="userProxy"></property>
+	</bean>
+	<bean id="buyOrderProxy" class="dao.BuyOrderProxy">
+		<property name="buyOrderHow" ref="buyOrderHow"></property>
+	</bean>
+	
+	<bean id="buyOrderFactory" class="factory.BuyOrderFactory">
+		<property name="proxy" ref="buyOrderProxy"></property>
+	</bean>
+	<bean id="productProxy" class="dao.ProductProxy">
+		<property name="productHow" ref="productHow"></property>
+	</bean>
+	<bean id="producFactory" class="factory.ProductFactory">
+		<property name="proxy" ref="productProxy"></property>
+	</bean>
+	<bean id="sellOrderProxy" class="dao.SellOrderProxy">
+		<property name="sellOrderHow" ref="sellOrderHow"></property>
+	</bean>
+	<bean id="sellOrderFactory" class="factory.SellOrderFactory">
+		<property name="proxy" ref="sellOrderProxy"></property>
+	</bean>
+	<bean id="chatProxy" class="dao.ChatProxy">
+		<property name="chatHow" ref= "chatHow"></property>
+	</bean>
+	<bean id="chatFactory" class="factory.ChatFactory">
+		<property name="proxy" ref="chatProxy"></property>
+	</bean>
+	
+	<!-- VO类 -->
+	<bean id="product" class="vo.Product" scope="prototype"></bean>
+	<bean id="chat" class="vo.Chat" scope="prototype"></bean>
+	<bean id="sellOrder" class="vo.SellOrder" scope="prototype"></bean>
+	<bean id="buyOrder" class="vo.BuyOrder" scope="prototype"></bean>
+	<bean id="user" class="vo.User" scope="prototype"></bean>
+	
+	
+	<!--数据库支持文件  -->
+ <bean id="txManager"
+  class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+  <property name="sessionFactory" ref="sessionFactory" />
+ </bean>
+
+<aop:config proxy-target-class="true">  
+  <aop:pointcut id="bussinessService"
+   expression="execution(* dao.*.*(..))" />
+    <aop:pointcut id="bussinessService"
+   expression="execution(* action.*.*(..))" />
+  <aop:advisor pointcut-ref="bussinessService"
+   advice-ref="txAdvice" />
+ </aop:config>
+
+ <tx:advice id="txAdvice" transaction-manager="txManager">
+  <tx:attributes>
+   <tx:method name="get*" read-only="false" propagation="NOT_SUPPORTED"/>
+   <tx:method name="find*" read-only="false" propagation="NOT_SUPPORTED"/>
+   <tx:method name="save*" propagation="REQUIRED"/> 
+   <tx:method name="update*" propagation="REQUIRED"/> 
+   <tx:method name="delete*" propagation="REQUIRED"/>
+   <tx:method name="*" propagation="REQUIRED" read-only="false"/>
+  </tx:attributes>
+ </tx:advice>
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/shouyou"/>
+		<property name="user" value="root"/>
+		<property name="password" value=""/>
+		<property name="maxPoolSize" value="40"/>
+		<property name="minPoolSize" value="1"/>
+		<property name="initialPoolSize" value="1"/>
+		<property name="maxIdleTime" value="20"/>
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mappingResources">
+			<list>
+				<value>vo/vo.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQLDialect
+				hibernate.hbm2ddl.auto=update
+				hibernate.show_sql=true;
+				hibernate.format_sql=true;
+			</value>
+		</property>
+	
+	</bean>
+	
+ </beans>
