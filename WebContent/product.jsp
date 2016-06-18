@@ -254,8 +254,6 @@
 				<span>操作系统 ：<%=product.getSystem() %></span>
 				<span>所属游戏 ：<%=product.getGame() %></span>
 				<span>描&nbsp;&nbsp;&nbsp;&nbsp;述 ：<%= product.getInformation()%></span>
-				<span>帐&nbsp;&nbsp;&nbsp;&nbsp;号 ：<%=product.getAccount() %></span>
-				<span>密&nbsp;&nbsp;&nbsp;&nbsp;码 ：<%=product.getPassword() %></span>
 				<span>
 				<form action="Buy">
 					<input type="hidden" name = "productListIndex" value="<%=product.getListIndex()%>">

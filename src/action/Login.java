@@ -3,10 +3,12 @@ package action;
 import vo.User;
 
 
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.UserProxy;
+import factory.UserFactory;
 
 public class Login extends ActionSupport{
 	private String name;
@@ -53,11 +55,26 @@ public class Login extends ActionSupport{
 		this.qq = qq;
 	}
 	public String register(){
+		User user = new User();
+		boolean flag = false;
+		user.setName(name);
+		user.setPassword(password);
+		user.setPhone(phone);
+		user.setQq(qq);
+		try {
+			flag = UserFactory.get().doCreate(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		ActionContext context = ActionContext.getContext();
 		context.getSession().put("User", name);
+		if(flag){
+			return "success";
+		}
 		return "success";
 	}
 	public String login(){
+		System.out.println(name);
 		ActionContext context = ActionContext.getContext();
 		context.getSession().put("User", name);
 		return "success";

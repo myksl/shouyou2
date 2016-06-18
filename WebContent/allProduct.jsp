@@ -82,7 +82,7 @@
 		<% 
 		
 		List<Product> list = null;
-		list = ProductFactory.get().findAll();
+		//list = ProductFactory.get().findAll();
 		for(Product product:list){
 		%>						
 		<div class="main">

@@ -143,6 +143,11 @@
 		margin-top: 40px;
 		border: 1px solid black; 
 	}
+	.product .productInclude .index{
+		width: 300px;
+		height: 90px;
+		margin: 0 auto;
+	}
 	.product .productInclude .main .title span{
 		margin-top:20px;
 		display: block;
@@ -278,9 +283,12 @@
 			</ul>
 		</div>
 		<% 
-		
+		int index=1;
+		if(request.getParameter("index")!=null){
+			index = new Integer(request.getParameter("index"));
+		}
 		List<Product> list = null;
-		list = ProductFactory.get().findAll();
+		list = ProductFactory.get().findAll(index);
 		for(Product product:list){
 		%>						
 		<div class="main">
@@ -295,12 +303,53 @@
 			<div class="remaining">
 				<span><%=product.getRemaining()%></span>
 			</div>
-		
 		</div>
 		<%
-		}
+			}
 		%>
-	
+		<div class="index">
+		<%
+			if(index==1){
+		%>
+			无上页
+		<%	
+			}else{
+		%>
+			<a href="shouYe.jsp?index=<%=index-1 %>">上一页</a>
+		<%
+			}
+			int count =ProductFactory.get().count();
+			count =count/8+1;
+			int i =0;
+			if((count-10)<0){
+				i=0;
+			}else{
+				i=count-10;
+			}
+			for(int x=i;x<count;x++){
+				if(x!=index-1){
+		%>
+			<a href="shouYe.jsp?index=<%=x+1 %>"><%=x+1 %></a>	
+		<% 		
+				}else{
+		%>
+				<%=x+1 %>
+		<% 			
+				}
+			}
+		%>
+		<%
+			if(index==count){
+		%>
+			无下页
+		<%	
+			}else{
+		%>
+			<a href="shouYe.jsp?index=<%=index+1 %>">下一页</a>
+		<%
+			}
+		%>
+		</div>
 	</div>
 </div>
 <div class="footer">

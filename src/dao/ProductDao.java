@@ -11,5 +11,8 @@ public interface ProductDao {
 	public void delete(Product product)throws Exception;
 	public Product findById(String s)throws Exception;
 	public List<Product> findByAccount(String s)throws Exception;
-	public List<Product> findAll()throws Exception;
+	public List<Product> findAll(final int offset,final int size)throws Exception;
+	public List<Product> findAllUp(final int offset,final int size)throws Exception;
+	public long count()throws Exception;
+	public List<Product> findAllBT(int offset, int size) throws Exception;
 }

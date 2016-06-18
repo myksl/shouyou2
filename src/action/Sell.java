@@ -2,6 +2,7 @@ package action;
 
 import java.util.regex.Pattern;
 
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.ProductProxy;
@@ -165,6 +166,11 @@ public class Sell extends ActionSupport{
 			addFieldError("information", "描述包含敏感词，请重新输入");
 		}else if(productProxy.findByAccount(account).size()!=0){
 			addFieldError("account", "该账号正在出售");
+		}else if(price<=0){
+			addFieldError("price", "价格必须大于等于0元");
+		}else if(level<=0){
+			addFieldError("level", "等级必须大于等于0");
 		}
+		
 	}
 }

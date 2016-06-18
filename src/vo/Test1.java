@@ -109,11 +109,11 @@ public class Test1 {
 		int account =ran.nextInt(1000000);
 		int password = ran.nextInt(1000000);
 		sql ="insert into product(sellNumber,own,system,productName,game,level,price,account,remaining,password,information)"
-				+ "  values('1','杨阳','"+system+"','"+name+"','问道','"+level+"','"+price+"','"+account+"','1','"+password+"','"+information+"');";
+				+ "  values('1','杨阳','"+system+"','"+name+"','问道','"+level+"',"+price+",'"+account+"','1','"+password+"','"+information+"');";
 		System.out.println(sql);
 	}
 	public static void main(String[] args) {
 		Test1 test = new Test1();
-		test.match(test.get("http://www.jiaoyimao.com/g2789-c1461139305604597/s惊天动地-n8.html"));
+		test.match(test.get("http://www.jiaoyimao.com/g2789-c1461139305604597/s惊天动地-n4.html"));
 	}
 }

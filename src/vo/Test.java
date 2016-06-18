@@ -8,6 +8,6 @@ public class Test {
 		System.out.println(p.matcher(s).find());
 	}
 	public static void main(String[] args) {
-		Test.a("敏感词111111111111");
+		
 	}
 }

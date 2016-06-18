@@ -65,10 +65,32 @@ public class ProductProxy {
 			return null;
 		}
 	}
-	public List<Product> findAll() throws Exception {
+	
+	public List<Product> findAll(int offset) throws Exception {
+		offset = (offset-1)*6+1;
 		List<Product> list =null;
 		try{
-		list = productHow.findAll();
+		list = productHow.findAll(offset,6);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public List<Product> findAllBT(int offset) throws Exception {
+		offset = (offset-1)*6+1;
+		List<Product> list =null;
+		try{
+		list = productHow.findAll(offset,6);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public List<Product> findAllUp(int offset) throws Exception {
+		offset = (offset-1)*6+1;
+		List<Product> list =null;
+		try{
+		list = productHow.findAllUp(offset,6);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,5 +104,14 @@ public class ProductProxy {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	public int count(){
+		int count= 0;
+		try {
+			count=(int) productHow.count();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 }
