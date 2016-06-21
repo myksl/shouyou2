@@ -29,12 +29,12 @@
 		</action>
 		<action name="UpdateProduct" class= "sell" method="update">
 			<result name="success">showProduct.jsp</result>
-			<result name ="sell">sell.jsp</result>
+			<result name ="input">sell.jsp</result>
 			<result name="login">login.jsp</result>
 		</action>
 		<action name="DeleteProduct" class= "sell" method="delete">
 			<result name="success">showProduct.jsp</result>
-			<result name ="sell">showSellOrder.jsp</result>
+			<result name ="input">showProduct.jsp</result>
 			<result name="login">login.jsp</result>
 		</action>
 		<action name="Buy" class= "buy" method="buy">
@@ -57,6 +57,21 @@
 		</action>
 		<action name="leave" class="server" method="leave">
 			<result name="success">index.jsp</result>
+		</action>
+		<action name="DeleteMessage" class="messages" method="delete">
+			<result name="success">showMessage.jsp</result>
+		</action>
+		<action name="AdminLogin" class="adminLogin" method="login">
+			<result name="success">user.jsp</result>
+			<result name="input">aLogin.jsp</result>
+		</action>
+		<action name="Limit" class="limit" method="limitUser">
+			<result name="success">user.jsp</result>
+			<result name="input">aLogin.jsp</result>
+		</action>
+		<action name="UpdateUser" class="login" method="update">
+			<result name="success">geRenZhongXin.jsp</result>
+			<result name="input">updateUser.jsp</result>
 		</action>
 	</package>
 	

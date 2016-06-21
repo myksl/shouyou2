@@ -114,6 +114,8 @@ public class Test1 {
 	}
 	public static void main(String[] args) {
 		Test1 test = new Test1();
-		test.match(test.get("http://www.jiaoyimao.com/g2789-c1461139305604597/s惊天动地-n4.html"));
+		for(int i =2;i<6;i++){
+			test.match(test.get("http://www.jiaoyimao.com/g2789-c1461139305604597/s惊天动地-n"+i+".html"));
+		}
 	}
 }

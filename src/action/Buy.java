@@ -1,17 +1,21 @@
 package action;
 
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 
 
 
 
 
+
+
+
 import dao.BuyOrderProxy;
+import dao.MessageProxy;
 import dao.ProductProxy;
 import dao.SellOrderProxy;
 import vo.BuyOrder;
+import vo.Message;
 import vo.Product;
 import vo.SellOrder;
 
@@ -20,21 +24,34 @@ public class Buy {
 	private String own;
 	private int listIndex;
 	private String time;
-	private String information;
-	private String orderName;
-	private int price;
-	private int sellNumber;
 	private int state;
-	private String system;
-	private int level;
-	private String game;
 	private String productListIndex;
-	private int remaining;
 	private SellOrderProxy sellOrderProxy;
 	private BuyOrderProxy buyOrderProxy;
 	private ProductProxy productProxy;
 	private Product product;
+	private MessageProxy messageProxy;
+	private Message message;
+	private Message messageBuy;
 	
+	public Message getMessageBuy() {
+		return messageBuy;
+	}
+	public void setMessageBuy(Message messageBuy) {
+		this.messageBuy = messageBuy;
+	}
+	public Message getMessage() {
+		return message;
+	}
+	public void setMessage(Message message) {
+		this.message = message;
+	}
+	public MessageProxy getMessageProxy() {
+		return messageProxy;
+	}
+	public void setMessageProxy(MessageProxy messageProxy) {
+		this.messageProxy = messageProxy;
+	}
 	public Product getProduct() {
 		return product;
 	}
@@ -65,12 +82,6 @@ public class Buy {
 	public void setNowUser(String nowUser) {
 		this.nowUser = nowUser;
 	}
-	public int getRemaining() {
-		return remaining;
-	}
-	public void setRemaining(int remaining) {
-		this.remaining = remaining;
-	}
 	public String getOwn() {
 		return own;
 	}
@@ -90,9 +101,6 @@ public class Buy {
 	public void setListIndex(int listIndex) {
 		this.listIndex = listIndex;
 	}
-	public String getInformation() {
-		return information;
-	}
 	
 	public String getTime() {
 		return time;
@@ -100,50 +108,11 @@ public class Buy {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public void setInformation(String information) {
-		this.information = information;
-	}
-	public String getOrderName() {
-		return orderName;
-	}
-	public void setOrderName(String orderName) {
-		this.orderName = orderName;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	public int getSellNumber() {
-		return sellNumber;
-	}
-	public void setSellNumber(int sellNumber) {
-		this.sellNumber = sellNumber;
-	}
 	public int getState() {
 		return state;
 	}
 	public void setState(int state) {
 		this.state = state;
-	}
-	public String getSystem() {
-		return system;
-	}
-	public void setSystem(String system) {
-		this.system = system;
-	}
-	public int getLevel() {
-		return level;
-	}
-	public void setLevel(int level) {
-		this.level = level;
-	}
-	public String getGame() {
-		return game;
-	}
-	public void setGame(String game) {
-		this.game = game;
 	}
 	public String buy(){
 		boolean flag = false;
@@ -166,6 +135,17 @@ public class Buy {
 		sellOrder.setSystem(product.getSystem());
 		SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		time= sdf.format(new Date());
+		message.setTitle(product.getProductName()+"已经售出");
+		message.setTime(time);
+		message.setType("交易");
+		message.setText("尊敬的用户:亲爱的用户，您发布的"+product.getProductName()+"已经售出");
+		message.setOwn(product.getOwn());
+		message.setSee("false");
+		try {
+			messageProxy.create(message);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		BuyOrder buyOrder = new BuyOrder();
 		buyOrder.setGame(product.getGame());
 		buyOrder.setPassword(product.getPassword());
@@ -181,7 +161,18 @@ public class Buy {
 		buyOrder.setSystem(product.getSystem());
 		buyOrder.setTime(time);
 		sellOrder.setTime(time);
+		messageBuy.setTitle(product.getProductName()+"已购买");
+		messageBuy.setTime(time);
+		messageBuy.setType("交易");
+		messageBuy.setText("尊敬的用户:亲爱的用户，您已购买"+product.getProductName()+"商品信息如下:   用户名:"+product.getAccount()+"密码:"+product.getPassword());
+		messageBuy.setOwn(nowUser);
+		messageBuy.setSee("false");
 		
+		try {
+			messageProxy.create(messageBuy);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		try {
 			flag =buyOrderProxy.doCreate(buyOrder);
 		} catch (Exception e) {

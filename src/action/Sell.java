@@ -1,11 +1,20 @@
 package action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
+
+
+
+
+
 
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import dao.MessageProxy;
 import dao.ProductProxy;
+import vo.Message;
 import vo.Product;
 
 public class Sell extends ActionSupport{
@@ -22,7 +31,21 @@ public class Sell extends ActionSupport{
 	private int remaining;
 	private ProductProxy productProxy;
 	private Product product;
+	private MessageProxy messageProxy;
+	private Message message;
 	
+	public Message getMessage() {
+		return message;
+	}
+	public void setMessage(Message message) {
+		this.message = message;
+	}
+	public MessageProxy getMessageProxy() {
+		return messageProxy;
+	}
+	public void setMessageProxy(MessageProxy messageProxy) {
+		this.messageProxy = messageProxy;
+	}
 	public Product getProduct() {
 		return product;
 	}
@@ -41,6 +64,7 @@ public class Sell extends ActionSupport{
 	public void setRemaining(int remaining) {
 		this.remaining = remaining;
 	}
+	
 	public int getListIndex() {
 		return listIndex;
 	}
@@ -115,7 +139,16 @@ public class Sell extends ActionSupport{
 		product.setOwn(own);
 		product.setRemaining(1);
 		product.setSellNumber(0);
+		SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		String time= sdf.format(new Date());
+		message.setTitle(productName+"已经上架");
+		message.setTime(time);
+		message.setType("商品");
+		message.setText("尊敬的用户:亲爱的用户，您发布的"+productName+"已经上架");
+		message.setSee("false");
+		message.setOwn(own);
 		try {
+			flag = messageProxy.create(message);
 			flag = productProxy.add(product);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,6 +160,11 @@ public class Sell extends ActionSupport{
 	}
 	public String update(){
 		boolean flag = false;
+		try {
+			product = productProxy.findById(listIndex+"");
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		product.setSystem(system);
 		product.setAccount(account);
 		product.setGame(game);
@@ -136,8 +174,16 @@ public class Sell extends ActionSupport{
 		product.setPrice(price);		
 		product.setProductName(productName);
 		product.setOwn(own);
-		product.setListIndex(listIndex);
+		SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		String time= sdf.format(new Date());
+		message.setTitle(productName+"已经修改");
+		message.setTime(time);
+		message.setType("商品");
+		message.setText("尊敬的用户:亲爱的用户，您发布的"+productName+"已经修改");
+		message.setOwn(own);
+		message.setSee("false");
 		try {
+			flag = messageProxy.create(message);
 			flag = productProxy.update(product);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -150,15 +196,24 @@ public class Sell extends ActionSupport{
 	public String delete(){
 		boolean flag = false;
 		product.setListIndex(listIndex);
+		SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		String time= sdf.format(new Date());
+		message.setTitle(productName+"已经删除");
+		message.setTime(time);
+		message.setType("商品");
+		message.setText("尊敬的用户:亲爱的用户，您发布的"+productName+"已经删除");
+		message.setOwn(own);
+		message.setSee("false");
 		try {
-			flag = productProxy.update(product);
+			flag = productProxy.delete(product);
+			flag = messageProxy.create(message);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if(flag){
 			return "success";
 		}
-		return "sell";
+		return "input";
 	}
 	public void validateSell(){
 		Pattern p = Pattern.compile("敏感词");

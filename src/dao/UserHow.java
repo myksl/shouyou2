@@ -19,6 +19,15 @@ public class UserHow extends HibernateDaoSupport implements UserDao {
 	public User findById(String s) throws Exception {
 		return getHibernateTemplate().get(User.class, s);
 	}
+	@Override
+	public void limit(User user) throws Exception {
+		getHibernateTemplate().update(user);
+		
+	}
+	@Override
+	public void update(User user) throws Exception {
+		getHibernateTemplate().update(user);
+	}
 	/*
 	@Override
 	public boolean check(User user) throws Exception {

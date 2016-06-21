@@ -3,8 +3,8 @@
 <html>
 <head>
 <title>聊天室</title>
-<link href="CSS/style.css" rel="stylesheet">
-<script language="javascript" src="JS/AjaxRequest.js"></script>
+<link href="css/style.css" rel="stylesheet">
+<script language="javascript" src="js/AjaxRequest.js"></script>
 <script language="javascript">
 window.setInterval("showContent();",1000);
 var sysBBS="<span style='font-size:14px; line-height:30px;'>欢迎使用交易猫客服客服端- - - - - - -当前客户：<%=request.getParameter("username")%></span><br><span style='line-height:22px;'>";
@@ -12,7 +12,7 @@ var remain = "";
 //此处需要加?nocache="+new Date().getTime()，否则将出现在线人员列表不更新的情况
 function showContent(){
 	var param="username=<%=request.getParameter("username")%>";
-	var loader1=new net.AjaxRequest("KgetMessages",deal_content,onerror,"POST",param);
+	var loader1=new net.AjaxRequest("../KgetMessages",deal_content,onerror,"POST",param);
 }
 function onerror(){
 	alert("很抱歉，服务器出现错误，当前窗口将关闭！");
@@ -48,7 +48,7 @@ window.onbeforeunload=function(){    		//当用户单击浏览器中的关闭按
 			alert("发送信息不可以为空！");form1.content1.focus();return false;
 		}
 		var param="&content1="+	form1.content1.value+"&username=<%=request.getParameter("username")%>";
-        var loader=new net.AjaxRequest("KsendMessages",deal_send,onerror,"POST",param);
+        var loader=new net.AjaxRequest("../KsendMessages",deal_send,onerror,"POST",param);
 
 	}
 	function deal_send(){
@@ -82,20 +82,20 @@ window.onbeforeunload=function(){    		//当用户单击浏览器中的关闭按
 	
 </head>
 <body>
-<table width="778" height="150" border="0" align="center" cellpadding="0" cellspacing="0" background="image/top.jpg">
+<table width="778" height="150" border="0" align="center" cellpadding="0" cellspacing="0" background="images/top.jpg">
   <tr>
     <td>&nbsp;</td>
   </tr>
 </table>
 <table width="778" height="276" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="613"  height="200px" valign="top" background="image/main_bj.jpg" bgcolor="#FFFFFF" style="padding:5px" >
+    <td width="613"  height="200px" valign="top" background="images/main_bj.jpg" bgcolor="#FFFFFF" style="padding:5px" >
 	<div style="height:290px; overflow:hidden" id="content">聊天内容</div>
 	</td>
 
   </tr>
 </table>
-<table width="778" height="95" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#D6D3CE" background="image/bottom.jpg">
+<table width="778" height="95" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#D6D3CE" background="images/bottom.jpg">
 
 <form action="" name="form1" method="post" >
   <tr>

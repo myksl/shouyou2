@@ -1,16 +1,17 @@
 package vo;
-
-
-
-
-
-
-
 public class User {
 	private String name;
 	private String password;
 	private String qq;
+	private String state;
 	private String phone;
+	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String getName() {
 		return name;
 	}

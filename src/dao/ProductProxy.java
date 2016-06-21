@@ -2,9 +2,12 @@ package dao;
 
 import java.util.List;
 
+import org.hibernate.service.spi.Startable;
+
 import vo.Product;
 
 public class ProductProxy {
+	private final static int SIZE=6;
 	private ProductHow productHow ;
 	
 	public ProductHow getProductHow() {
@@ -23,10 +26,11 @@ public class ProductProxy {
 		flag = true;
 		return flag;
 	}
-	public List<Product> findByOwn(String s) {
+	public List<Product> findByOwn(String s,int offset) {
+		offset = (offset-1)*SIZE;
 		List<Product> list =null;
 		try{
-		list = productHow.findByOwn(s);
+		list = productHow.findByOwn(s,offset,SIZE);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,30 +71,41 @@ public class ProductProxy {
 	}
 	
 	public List<Product> findAll(int offset) throws Exception {
-		offset = (offset-1)*6+1;
+		offset = (offset-1)*SIZE;
 		List<Product> list =null;
 		try{
-		list = productHow.findAll(offset,6);
+		list = productHow.findAll(offset,SIZE);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	public List<Product> findAllBT(int offset) throws Exception {
-		offset = (offset-1)*6+1;
+	public List<Product> findAllBT(int offset,int start,int end) throws Exception {
+		offset = (offset-1)*SIZE;
 		List<Product> list =null;
 		try{
-		list = productHow.findAll(offset,6);
+		list = productHow.findAllBT(offset,SIZE,start,end);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
 	public List<Product> findAllUp(int offset) throws Exception {
-		offset = (offset-1)*6+1;
+		offset = (offset-1)*SIZE;
 		List<Product> list =null;
 		try{
-		list = productHow.findAllUp(offset,6);
+		list = productHow.findAllUp(offset,SIZE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<Product> findByName(int offset,String s) throws Exception {
+		offset = (offset-1)*SIZE;
+		List<Product> list =null;
+		try{
+			list = productHow.findByName(offset,SIZE,"云霄");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,6 +124,15 @@ public class ProductProxy {
 		int count= 0;
 		try {
 			count=(int) productHow.count();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	public int countByOwn(String s){
+		int count= 0;
+		try {
+			count=(int) productHow.countByOwn(s);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

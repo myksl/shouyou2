@@ -15,11 +15,21 @@
 	<bean id="login" class="action.Login" scope="prototype">
 		<property name="userProxy" ref="userProxy"></property>
 	</bean>
+	<bean id="limit" class="action.Limit" scope="prototype">
+		<property name="userProxy" ref="userProxy"></property>
+	</bean>
 	<bean id="buy" class="action.Buy" scope="prototype">
 		<property name="productProxy" ref="productProxy"/>
 		<property name="sellOrderProxy" ref="sellOrderProxy"/>
 		<property name="buyOrderProxy" ref="buyOrderProxy"/>
 		<property name="product" ref="product"></property>
+		<property name="messageProxy" ref="messageProxy"></property>
+		<property name="message" ref="message"></property>		
+		<property name="messageBuy" ref="message"></property>		
+	</bean>
+	<bean id="messages" class="action.Messages" scope="prototype">
+		<property name="messageProxy" ref="messageProxy"></property>
+		<property name="message" ref="message"></property>
 	</bean>
 	<bean id="server" class="action.Server" scope="prototype">
 		<property name="chatProxy" ref="chatProxy"/>
@@ -30,10 +40,19 @@
 	<bean id="sell" class="action.Sell" scope="prototype">
 		<property name="productProxy" ref="productProxy"></property>
 		<property name="product" ref="product"></property>
+		<property name="messageProxy" ref="messageProxy"></property>
+		<property name="message" ref="message"></property>		
 	</bean>
 	<bean id="sessionInterceptor" class="interceptor.SessionInterceptor" scope="prototype">
 	</bean>
+	<bean id="adminLogin" class="action.AdminLogin" scope="prototype">
+		<property name="adminProxy" ref="adminProxy"></property>
+		<property name="admin" ref="admin"></property>	
+	</bean>
 	<!-- 数据库执行类 -->
+	<bean id="messageHow" class="dao.MessageHow">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 	<bean id="userHow" class="dao.UserHow">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean> 
@@ -47,6 +66,9 @@
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean> 
 	<bean id="chatHow" class="dao.ChatHow">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean> 
+	<bean id="adminHow" class="dao.AdminHow">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean> 
 	
@@ -82,6 +104,18 @@
 	<bean id="chatFactory" class="factory.ChatFactory">
 		<property name="proxy" ref="chatProxy"></property>
 	</bean>
+	<bean id="messageProxy" class="dao.MessageProxy">
+		<property name="messageHow" ref="messageHow"></property>
+	</bean>
+	<bean id="messageFactory" class="factory.MessageFactory">
+		<property name="proxy" ref="messageProxy"></property>
+	</bean>
+	<bean id="adminProxy" class="dao.AdminProxy">
+		<property name="adminHow" ref="adminHow"></property>
+	</bean>
+	<bean id="adminFactory" class="factory.AdminFactory">
+		<property name="proxy" ref="adminProxy"></property>
+	</bean>
 	
 	<!-- VO类 -->
 	<bean id="product" class="vo.Product" scope="prototype"></bean>
@@ -89,6 +123,8 @@
 	<bean id="sellOrder" class="vo.SellOrder" scope="prototype"></bean>
 	<bean id="buyOrder" class="vo.BuyOrder" scope="prototype"></bean>
 	<bean id="user" class="vo.User" scope="prototype"></bean>
+	<bean id="message" class="vo.Message" scope="prototype"></bean>
+	<bean id="admin" class="vo.Admin" scope="prototype"></bean>
 	
 	
 	<!--数据库支持文件  -->
@@ -99,21 +135,18 @@
 
 <aop:config proxy-target-class="true">  
   <aop:pointcut id="bussinessService"
-   expression="execution(* dao.*.*(..))" />
-    <aop:pointcut id="bussinessService"
+   expression="execution(* factory.*.*(..))" />
+   <aop:pointcut id="bussinessService"
    expression="execution(* action.*.*(..))" />
+   <aop:pointcut id="bussinessService"
+   expression="execution(* dao.*.*(..))" />
   <aop:advisor pointcut-ref="bussinessService"
    advice-ref="txAdvice" />
  </aop:config>
 
  <tx:advice id="txAdvice" transaction-manager="txManager">
   <tx:attributes>
-   <tx:method name="get*" read-only="false" propagation="NOT_SUPPORTED"/>
-   <tx:method name="find*" read-only="false" propagation="NOT_SUPPORTED"/>
-   <tx:method name="save*" propagation="REQUIRED"/> 
-   <tx:method name="update*" propagation="REQUIRED"/> 
-   <tx:method name="delete*" propagation="REQUIRED"/>
-   <tx:method name="*" propagation="REQUIRED" read-only="false"/>
+   <tx:method name="*"  read-only="false"/>
   </tx:attributes>
  </tx:advice>
 	
@@ -138,8 +171,7 @@
 			<value>
 				hibernate.dialect=org.hibernate.dialect.MySQLDialect
 				hibernate.hbm2ddl.auto=update
-				hibernate.show_sql=true;
-				hibernate.format_sql=true;
+				hibernate.show_sql=true
 			</value>
 		</property>
 	

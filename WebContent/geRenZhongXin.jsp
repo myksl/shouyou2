@@ -1,3 +1,4 @@
+<%@page import="factory.MessageFactory"%>
 <%@page import="factory.UserFactory"%>
 <%@page import="vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -230,7 +231,7 @@
 				HttpSession sess =request.getSession();
 				String name = "";
 				if(sess.getAttribute("User")!=null){
-				name = 	(String)sess.getAttribute("User");
+					name = 	(String)sess.getAttribute("User");
 			%>
 				欢迎<%=name %>登录交易猫
 			<%}else{
@@ -255,6 +256,12 @@
 			<%
 				}
 			%>
+			</li>
+			<li>
+			<%
+				int count =MessageFactory.get().NoSee(name);
+			%>
+				<a href="showMessage.jsp">消息[<font color="red"><%=count %></font>]</a>
 			</li>
 			<li>	
 				购买记录

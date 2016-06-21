@@ -4,6 +4,8 @@ import vo.User;
 
 
 
+
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -74,9 +76,26 @@ public class Login extends ActionSupport{
 		return "success";
 	}
 	public String login(){
-		System.out.println(name);
 		ActionContext context = ActionContext.getContext();
 		context.getSession().put("User", name);
+		return "success";
+	}
+	public String update(){
+		User user = null;
+		try {
+			user = userProxy.findById(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+		}
+		user.setPassword(password);
+		user.setPhone(phone);
+		user.setQq(qq);
+		try {
+			userProxy.update(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "success";
 	}
 	
@@ -93,6 +112,8 @@ public class Login extends ActionSupport{
 				flag = userProxy.check(user);
 				if(!flag){
 					addFieldError("password", "密码不正确，请重新输入");
+				}else if(userProxy.findById(name).getState().equals("limit")){
+					addFieldError("name", "您的账号涉嫌违规，已被封禁");
 				}
 			}
 		} catch (Exception e1) {
@@ -108,6 +129,12 @@ public class Login extends ActionSupport{
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
+		}
+	}
+	
+	public void validateUpdate(){
+		if(!password.equals(password2)){
+			addFieldError("name", "用户已存在，请重新输入");
 		}
 	}
 }

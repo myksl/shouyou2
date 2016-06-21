@@ -11,13 +11,14 @@
 		<property name ="password"/>
 		<property name ="qq"/>
 		<property name ="phone"/>
+		<property name ="state"/>
 	</class>
 	
-	<class name ="Product" table="product">
-		<id name="listIndex">
+	<class name ="Product" table="product" >
+		<id name="listIndex" >
 			<generator class="native"/>
 		</id>
-		<property name="sellNumber"/>
+		<property name="sellNumber" />
 		<property name="system"/>
 		<property name="productName"/>
 		<property name="level"/>
@@ -71,5 +72,22 @@
 			<id name="User">
 			</id>
 			<property name="text"/>
-		</class>
+	</class>
+	<class name ="Message" table="message">
+			<id name="listIndex">
+				<generator class="native"/>
+			</id>
+			<property name="text"/>
+			<property name="own"/>
+			<property name="title"/>
+			<property name="time"/>
+			<property name="type"/>
+			<property name="see"/>
+	</class>
+	<class name ="Admin" table="admin">
+			<id name="name">
+			</id>
+			<property name="password"/>
+	</class>
+	
 </hibernate-mapping>

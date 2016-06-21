@@ -283,13 +283,13 @@
 			</ul>
 		</div>
 		<% 
-		int index=1;
-		if(request.getParameter("index")!=null){
-			index = new Integer(request.getParameter("index"));
-		}
-		List<Product> list = null;
-		list = ProductFactory.get().findAll(index);
-		for(Product product:list){
+			int index=1;
+			if(request.getParameter("index")!=null){
+				index = new Integer(request.getParameter("index"));
+			}
+			List<Product> list = null;
+			list = ProductFactory.get().findAll(index);
+			for(Product product:list){
 		%>						
 		<div class="main">
 			<div class="title">

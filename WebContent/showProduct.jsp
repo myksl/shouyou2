@@ -155,6 +155,8 @@
 		float: left;
 	}
 	.management .managementInclude .managementRight .search .search4{
+		width: 740px;
+		height:900px;
 		margin-top: 50px;
 	}
 	.management .managementInclude .managementRight .search .search4  ul{
@@ -163,6 +165,15 @@
 	}
 	.management .managementInclude .managementRight .search .search4  ul li{
 		float: left;
+	}
+	.management .managementInclude .managementRight .search .search4 .booking-table{
+		width: 740px;
+		height:120px;
+	}
+	.management .managementInclude .managementRight .search  .index{
+		width: 500px;
+		height: 90px;
+		margin: 0 auto;
 	}
 	.management .managementInclude .managementRight .search .search4 .mycenter-head .title1{
 		padding-left: 50px;
@@ -417,9 +428,12 @@
 						</ul>
 					</div>
 					<% 
-
+						int index=1;
+						if(request.getParameter("index")!=null){
+							index = new Integer(request.getParameter("index"));
+						}
 						List<Product> list = null;
-						list = ProductFactory.get().findByOwn(name);
+						list = ProductFactory.get().findByOwn(name,index);
 						for(Product product:list){
 					%>						
 						<div class="booking-table">
@@ -438,15 +452,59 @@
 										<span class="status">交易成功</span>
 										<span>
 											<a href="updateProduct.jsp?listIndex=<%=product.getListIndex()%>">修改</a>
-											<a href="DeleteProduct?listIndex=<%=product.getListIndex()%>">删除</a>
+											<a href="DeleteProduct?listIndex=<%=product.getListIndex()%>&productName
+											=<%=product.getProductName()%>&own=<%=product.getOwn()%>">删除</a>
 										</span>
 									</div>
 								</li>
 							</ul>
 						</div>
 						<%
-						}
+							}
 						%>
+				</div>
+				<div class="index">
+					<%
+						if(index==1){
+					%>
+						无上页
+					<%	
+						}else{
+					%>
+						<a href="showProduct.jsp?index=<%=index-1 %>">上一页</a>
+					<%
+						}
+						int count =ProductFactory.get().count();
+						count =count/8+1;
+						int i =0;
+						if((index-5)<0){
+							i=0;
+						}else{
+							i=index-5;
+						}
+						for(int x=i;x<Math.min(Math.max(10, index+5), count);x++){
+							if(x!=index-1){
+					%>
+						<a href="showProduct.jsp?index=<%=x+1 %>"><%=x+1 %></a>	
+					<% 		
+							}else{
+					%>
+							<%=x+1 %>
+					<% 			
+							}
+						}
+					%>
+					<%
+						if(index==count){
+					%>
+						无下页
+					<%	
+						}else{
+					%>
+						<a href="showProduct.jsp?index=<%=index+1 %>">下一页</a>
+					<%
+						}
+					%>
 				</div>
 			</div>
 		</div>

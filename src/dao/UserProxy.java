@@ -51,6 +51,14 @@ public class UserProxy {
 		
 		return user;
 	}
+	public void limit(String name,String type)throws Exception{
+		User user = findById(name);
+		user.setState(type);
+		userHow.limit(user);
+	}
+	public void update(User user)throws Exception{
+		userHow.update(user);
+	}
 	/*
 	
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <style type="text/css">
@@ -176,6 +177,7 @@
 			<ul>
 			<li>
 			<% 
+				String listIndex = request.getParameter("listIndex");
 				HttpSession sess =request.getSession();
 				String name = "";
 				if(sess.getAttribute("User")!=null){
@@ -260,45 +262,65 @@
 </div>
 <div class="sell">
 	<div class="sellInclude">
-		<form action="UpdateProduct">
+		<s:form action="UpdateProduct" validate="true">
 			<ul>
 				<li>
-					商品编号 ：<input class="text" type="text" value="<%= request.getParameter("listIndex")%>"
-					name ="listIndex">
+					商品名称 ：<s:textfield class="text"  name="productName"/>
+					<s:fielderror cssStyle="color: red">
+              			<s:param>productName</s:param>
+        			</s:fielderror>
 				</li>
 				<li>
-					商品名称 ：<input class="text" type="text" name="productName">
+					<input  name="own" type="hidden" value="<%=name%>"/>
+					<input  name="listIndex" type="hidden" value="<%=listIndex%>"/>
 				</li>
 				<li>
-					用&nbsp;&nbsp;&nbsp;&nbsp;户 ：<input class="text" type="text" name="own">
+					账&nbsp;&nbsp;&nbsp;&nbsp;号 : <s:textfield class="text"  name="account"/>
+					<s:fielderror cssStyle="color: red">
+              			<s:param>account</s:param>
+        			</s:fielderror>
 				</li>
 				<li>
-					账&nbsp;&nbsp;&nbsp;&nbsp;号 : <input class="text" type="text" name="account">
+					密&nbsp;&nbsp;&nbsp;&nbsp;码 ：<s:textfield class="text"  name="password"/>
+					<s:fielderror cssStyle="color: red">
+              			<s:param>password</s:param>
+        			</s:fielderror>
 				</li>
 				<li>
-					密&nbsp;&nbsp;&nbsp;&nbsp;码 ：<input class="text" type="password" name="password">
+					所属游戏 ：<s:textfield class="text"  name="game"/>
+					<s:fielderror cssStyle="color: red">
+              			<s:param>game</s:param>
+        			</s:fielderror>
 				</li>
 				<li>
-					所属游戏 ：<input class="text" type="text" name="game">
+					操作系统 ：<s:textfield class="text"  name="system"/>		
+					<s:fielderror cssStyle="color: red">
+              			<s:param>system</s:param>
+        			</s:fielderror>			
 				</li>
 				<li>
-					操作系统 ：<input class="text" type="text" name="system">					
+					等&nbsp;&nbsp;&nbsp;&nbsp;级 ：<s:textfield class="text"  name="level"/>
+					<s:fielderror cssStyle="color: red">
+              			<s:param>level</s:param>
+        			</s:fielderror>
 				</li>
 				<li>
-					等&nbsp;&nbsp;&nbsp;&nbsp;级 ：<input class="text" type="text" name="level">
+					价&nbsp;&nbsp;&nbsp;&nbsp;格 : <s:textfield class="text"  name="price"/>
+					<s:fielderror cssStyle="color: red">
+              			<s:param>price</s:param>
+        			</s:fielderror>
 				</li>
 				<li>
-					价&nbsp;&nbsp;&nbsp;&nbsp;格 : <input class="text" type="text" name="price">
+					描&nbsp;&nbsp;&nbsp;&nbsp;述 ：<s:textarea cols="70" rows="3"   name="information"/>
+					<s:fielderror cssStyle="color: red">
+              			<s:param>information</s:param>
+        			</s:fielderror>
 				</li>
 				<li>
-					描&nbsp;&nbsp;&nbsp;&nbsp;述 ：<input class="text" type="text" name="information">
-				</li>
-				<li>
-					<input class="button" type="submit"  value="出售">
+					<s:submit class="button"   value="出售"/>
 				</li>
 			</ul>
-		
-		</form>
+		</s:form>
 	</div>
 </div>
 <div class="footer">
