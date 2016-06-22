@@ -1,30 +1,148 @@
-<%@page import="factory.MessageFactory"%>
 <%@page import="factory.ProductFactory"%>
 <%@page import="vo.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link rel="stylesheet" type="text/css" href="css/showBuyOrder.css">
-<link rel="stylesheet" type="text/css" href="css/footer.css">
-<link rel="stylesheet" type="text/css" href="css/title.css">
-<link rel="stylesheet" type="text/css" href="css/nav.css">
-<link rel="stylesheet" type="text/css" href="css/buyOrder.css">
+
+<style type="text/css">
+	*{
+		margin: 0px;
+		padding: 0px;
+	}
+	.top{
+		width: 100%;
+		height: 36px;
+	}
+	.top .topinclude{
+		width: 80%;
+		height: 36px;
+		margin: 0 auto;
+	}
+	.top .topleft ul{
+		list-style: none;
+		float: left;
+	}
+	.top .topleft ul li{
+		float: left;
+		margin-right: 5px;
+	}
+	.top .topright ul {
+		list-style: none;
+		float: right;
+	}
+	.top .topright ul li{
+		float: left;
+		margin-right: 5px;
+	}
+	.logo{
+		width: 100%;
+		height: 61px;
+	}
+	.logo .logoinclude{
+		width: 80%;
+		height: 61px;
+		margin: 0 auto;
+	}
+	.logo .search{
+		float: right;
+	}
+	.logo .logopic{
+		float: left;
+	}
+	.logo .search .text{
+		width:340px;
+		height:26px;
+	}
+	.logo .search .button{
+		width:70px;
+		height:30px;
+		font-size: 15px;
+		color: white;
+		background-color: blue;
+		border: 0px;
+	}
+	.navigation{
+		clear:both;
+		width: 100%;
+		background-color:gray;
+		height: 36px;
+		color: white;
+		font-size: 25px;
+	}
+	.navigation ul{
+		list-style: none;
+	}
+	.navigation ul li{
+
+		margin-top:5px;
+		float: left;
+		margin-right: 30px;
+	}
+	.navigationinclude{
+		width: 830px;
+		height: 36px;
+		margin: 0 auto;
+
+	}
+	.footer{
+		color:white;
+		background-color:gray;
+		width: 100%;
+		height: 230px;
+	}
+	.footer .footerInclude{
+		width: 80%;
+		height: 230px;
+		margin:  0 auto;
+	}
+	.footer ul{
+		padding-left:100px;
+		list-style: none;
+		float: left;
+	}
+	.footer ul li{
+		margin-top:30px;
+		margin-right:100px;
+		float: left;
+	}
+	.product {
+		width: 100%;
+		height: 500px;
+	}
+	.product .productInclude {
+		width: 80%;
+		height: 500px;
+		margin: 0 auto;
+	}
+	.product .productInclude .productTop span{
+		display: block;
+		margin-top: 5px;
+	}
+	.product .productInclude .productTop .button{
+		width:70px;
+		height:30px;
+		font-size: 15px;
+		color: white;
+		background-color: blue;
+		border: 0px;
+	}	
+	
+</style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>交易猫_手机游戏交易平台</title>
+<title>Insert title here</title>
 </head>
 <body>
-<script type="text/javascript" src="js/logo.js"></script>
 <div class="top">
 	<div class="topinclude">
 		<div class="topleft">
 		<ul>
 			<li>
-			<b>电脑版</b>
+			手机版
 			</li>
 			<li>
-			<a href="#">手机版</a>
+			电脑版
 			</li>
 		</ul>
 		</div>
@@ -37,7 +155,7 @@
 				if(sess.getAttribute("User")!=null){
 				name = 	(String)sess.getAttribute("User");
 			%>
-				欢迎<%=name %>登录交易猫！
+				欢迎<%=name %>登录交易猫
 			<%}else{
 			%>
 				您好 欢迎访问交易猫
@@ -45,16 +163,14 @@
 				}
 			%>
 			</li>
-
+			<li>
+				<a href="register.jsp">注册</a>
+			</li>
 			<li>
 			<% 
 				if(sess.getAttribute("User")!=null){
 			%>
-				<a href="out.jsp"> 注销 |</a>
-			<%
-				int count =MessageFactory.get().NoSee(name);
-			%>
-				<a href="showMessage.jsp">消息[<font color="red"><%=count %></font>]</a>
+				<a href="out.jsp">注销</a>
 			<%
 				}else{
 			%>
@@ -64,23 +180,19 @@
 			%>
 			</li>
 			<li>	
-				<a href="showBuyOrder.jsp"> 购买记录 |</a>
+				购买记录
 			</li>
 			<li>
-				<a href="geRenZhongXin.jsp"> 个人中心 |</a>
+				<a href="geRenZhongXin.jsp">个人中心</a>
 			</li>
 			<li>
-				<a href="#" onmouseover="over()" onmouseout="out()">
-					<div id="image2"><img src="./image/icons.png"></div>
-					<div id="image1"><img src="./image/icons.png"></div>
-					<span class="download">下载APP</span>
-				</a>
+				下载APP
 			</li>
 			</ul>
 		</div>
+	
 	</div>
 </div>
-
 <div class="logo">
 	<div class="logoinclude">
 		<div class="logopic">
@@ -95,26 +207,30 @@
 		</div>
 	</div>
 </div>
-
 <div class="navigation">
 	<div class="navigationinclude">
-		<input type="radio" id="radio_control_1" name="radio_set" checked="checked" />
-		<a href="shouYe.jsp"><span class="word">首页</span></a>
-		<input type="radio" id="radio_control_2" name="radio_set" />
-		<a href="showMessage.jsp"><span class="word">站内信</span></a>
-		<input type="radio" id="radio_control_3" name="radio_set" />
-		<a href="allProduct.jsp"><span class="word">商品</span></a>
-		<input type="radio" id="radio_control_4" name="radio_set" />
-		<a href="#"><span class="word">游戏专区</span></a>
-		<input type="radio" id="radio_control_5" name="radio_set" />
-		<a href="geRenZhongXin.jsp"><span class="word">个人中心</span></a>
-		<input type="radio" id="radio_control_6" name="radio_set" />
-		<a href="main.jsp"><span class="word">客服中心</span></a>
+		<ul>
+			<li>
+				首页
+			</li>
+			<li>
+				首充号
+			</li>
+			<li>
+				苹果代充
+			</li>
+			<li>
+				游戏专区
+			</li>
+			<li>
+				个人中心
+			</li>
+			<li>
+				帮助中心
+			</li>
+			
+		</ul>
 	</div>
-</div>
-
-<div class="nav">
-		<span class="span"><a href="shouye.html">首页</a></span><span class="span"><a href="geRenZhongXin.html">个人中心</a></span><span>查看我的商品</span>
 </div>
 <%
 	String listIndex = request.getParameter("listIndex");
@@ -127,17 +243,17 @@
 		<div class="productInclude">
 			<div class="productTop">
 				<span><%=product.getProductName() %></span>
-				<span>商品价格：<%=product.getPrice() %></span>
-				<span>保障服务：已通过支付宝实名认证</span>
+				<span>商品价格： <%=product.getPrice() %></span>
+				<span>保障服务：</span>
+				 
+				<span>已通过支付宝实名认证</span>
 				<span>出售次数:在交易猫已有 <%=product.getSellNumber() %> 次交易记录</span>
 				<span>商品已售完</span>
 				
-				<span>等级 ：<%=product.getLevel() %></span>
+				<span>等&nbsp;&nbsp;&nbsp;&nbsp;级 ：<%=product.getLevel() %></span>
 				<span>操作系统 ：<%=product.getSystem() %></span>
 				<span>所属游戏 ：<%=product.getGame() %></span>
-				<span>描述 ：<%= product.getInformation()%></span>
-				<span>帐号 ：<%=product.getAccount() %></span>
-				<span>密码 ：<%=product.getPassword() %></span>
+				<span>描&nbsp;&nbsp;&nbsp;&nbsp;述 ：<%= product.getInformation()%></span>
 				<span>
 				<form action="Buy">
 					<input type="hidden" name = "productListIndex" value="<%=product.getListIndex()%>">
@@ -159,33 +275,32 @@
 	<div class ="footerInclude">
 		<ul>
 			<li>
-				<span>新手入门</span><br>
-				<a href="#">免费注册</a><br>
-				<a href="#">如何购买商品</a><br>
-				<a href="#">如何发布商品</a>
+				新手入门<br>
+				免费注册<br>
+				如何购买商品<br>
+				如何发布商品
 			</li>
 			<li>
-				<span>诚信服务</span><br>
-				<a href="#">用户协议</a><br>
-				<a href="#">免责声明</a><br>
-				<a href="#">7*24小时服务</a>
+				诚信服务<br>
+				用户协议<br>
+				免责声明<br>
+				7*24小时服务
 			</li>
 			<li>
-				<span>交易保障</span><br>
-				<a href="#">寄售交易</a><br>
-				<a href="#">支付宝交易</a><br>
-				<a href="#">建议与投诉</a>
+				交易保障<br>
+				寄售交易<br>
+				支付宝交易<br>
+				建议与投诉
 			</li>
 			<li>
-				<span>售后服务</span><br>
-				<a href="#">联系客服</a>
+				售后服务<br>
+				联系客服
 			</li>
 			<li>
-				<span>友情链接</span><br>
-				<a href="#">九游游戏</a>
+				友情链接<br>
+				九游游戏
 			</li>
 		</ul>
-		<span class="span1">Copyright © 2013 jiaoyimao.com    版权所有    ICP证：粤ICP备13009613号-2 </span>
 	</div>
 </div>
 </body>

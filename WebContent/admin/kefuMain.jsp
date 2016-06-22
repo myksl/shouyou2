@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
 <title>聊天室</title>
@@ -7,10 +8,10 @@
 <script language="javascript">
 window.setInterval("showContent();",1000);
 var sysBBS="<span style='font-size:14px; line-height:30px;'>欢迎使用交易猫客服客服端- - - - - - -当前客户：<%=request.getParameter("username")%></span><br><span style='line-height:22px;'>";
+var remain = "";
 //此处需要加?nocache="+new Date().getTime()，否则将出现在线人员列表不更新的情况
-var remain ="";
 function showContent(){
-	var param="username=${User}";
+	var param="username=<%=request.getParameter("username")%>";
 	var loader1=new net.AjaxRequest("../KgetMessages",deal_content,onerror,"POST",param);
 }
 function onerror(){
@@ -46,7 +47,7 @@ window.onbeforeunload=function(){    		//当用户单击浏览器中的关闭按
 		if(form1.content1.value==""){
 			alert("发送信息不可以为空！");form1.content1.focus();return false;
 		}
-		var param=	"&content1="+form1.content1.value+"&username=${User}";
+		var param="&content1="+	form1.content1.value+"&username=<%=request.getParameter("username")%>";
         var loader=new net.AjaxRequest("../KsendMessages",deal_send,onerror,"POST",param);
 
 	}
@@ -60,10 +61,6 @@ window.onbeforeunload=function(){    		//当用户单击浏览器中的关闭按
 			content.innerHTML=sysBBS+returnValue+"</span>";
 		}
 	}
-	function Exit(){
-		window.location.href="leave?username=${User}";
-		alert("欢迎您下次光临！");
-	}
 </script>
 <script type="text/javascript">
 	function checkScrollScreen(){
@@ -76,43 +73,41 @@ window.onbeforeunload=function(){    		//当用户单击浏览器中的关闭按
     }
     setTimeout('checkScrollScreen()',500);
 }
+	function Exit(){
+		window.location.href="leave.jsp";
+		alert("欢迎您下次光临！");
+	}
 	
 </script>
-
+	
 </head>
-
 <body>
-	<section>
-		<table background="images/2.jpg" class="table_one">
-			<tr>
-				<td><span>顾客至上</span><br><span>用心沟通</span></td>
-			</tr>
-		</table>
+<table width="778" height="150" border="0" align="center" cellpadding="0" cellspacing="0" background="images/top.jpg">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table width="778" height="276" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="613"  height="200px" valign="top" background="images/main_bj.jpg" bgcolor="#FFFFFF" style="padding:5px" >
+	<div style="height:290px; overflow:hidden" id="content">聊天内容</div>
+	</td>
 
-		<table width="778" height="276" border="0" align="center" cellpadding="0" cellspacing="0">
-			<tr>
-				<td width="613" height="200px" valign="top" bgcolor="lightcyan" style="padding:5px;border:0;">
-					<div id="content">聊天内容</div>
-				</td>
-			</tr>
-		</table>
+  </tr>
+</table>
+<table width="778" height="95" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#D6D3CE" background="images/bottom.jpg">
 
-		<table width="778" height="95" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#D6D3CE" background="images/6.jpg">
-			<form action="" name="form1" method="post">
-				<tr>
-					<td width="21" height="30" align="left">&nbsp;</td>
-					<td width="600px" align="left">
-						<input name="content1" type="text" size="70" onKeyDown="if(event.keyCode==13 && event.ctrlKey){send();}">
-						<input name="Submit2" type="button" class="btn_grey" value="发送" onClick="send()"></td>
-					<td ><input name="button_exit" type="button" class="btn_grey" id="exit" value="结束对话" onClick="Exit()"></td>
-					<td align="center">&nbsp;</td>
-					<td width="40" align="right">
-						<input name="scrollScreen" type="checkbox" class="noborder" id="scrollScreen" onClick="checkScrollScreen()" value="1" checked>
-					</td>
-				</tr>
-			</form>
-		</table>
-	</section>
+<form action="" name="form1" method="post" >
+  <tr>
+    <td width="21" height="30" align="left">&nbsp;</td>
+    <td width="549" align="left">
+    
+    <input name="content1" type="text" size="70" onKeyDown="if(event.keyCode==13 && event.ctrlKey){send();}">
+      <input name="Submit2" type="button" class="btn_grey" value="发送" onClick="send()"></td>
+    <td align="center">&nbsp;</td>
+    <td width="19" align="left"><input name="scrollScreen" type="checkbox" class="noborder" id="scrollScreen" onClick="checkScrollScreen()" value= "1" checked></td>
+  </tr>
+</form>
+</table>
 </body>
-
 </html>

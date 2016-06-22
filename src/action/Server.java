@@ -91,10 +91,8 @@ public class Server {
 	}
 	public String leave(){
 		boolean flag = false;
-		Chat chat = new Chat();
-		chat.setUser(username);
 		 try {
-				flag = chatProxy.delete(chat);
+				flag = chatProxy.delete(username);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

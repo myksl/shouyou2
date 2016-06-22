@@ -29,8 +29,8 @@ public class ChatHow extends HibernateDaoSupport implements ChatDao{
 	}
 
 	@Override
-	public void delete(Chat chat) throws Exception {
-		getHibernateTemplate().delete(chat);
+	public void delete(String s) throws Exception {
+		getHibernateTemplate().delete(s);
 	}
 	@Override
 	public List<Chat> findAll() throws Exception {
