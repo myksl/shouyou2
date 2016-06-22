@@ -53,7 +53,7 @@
 			<%
 				int count =MessageFactory.get().NoSee(name);
 			%>
-				<a href="showMessage.jsp">消息[<font color="red"><%=count %></font>]</a>
+				<a href="user/showMessage.jsp">消息[<font color="red"><%=count %></font>]</a>
 			<%
 				}else{
 			%>
@@ -64,10 +64,10 @@
 			%>
 			</li>
 			<li>	
-				<a href="showBuyOrder.jsp"> 购买记录 |</a>
+				<a href="user/showBuyOrder.jsp"> 购买记录 |</a>
 			</li>
 			<li>
-				<a href="geRenZhongXin.jsp"> 个人中心 |</a>
+				<a href="user/geRenZhongXin.jsp"> 个人中心 |</a>
 			</li>
 			<li>
 				<a href="#" onmouseover="over()" onmouseout="out()">
@@ -101,15 +101,15 @@
 		<input type="radio" id="radio_control_1" name="radio_set" checked="checked" />
 		<a href="shouYe.jsp"><span class="word">首页</span></a>
 		<input type="radio" id="radio_control_2" name="radio_set" />
-		<a href="showMessage.jsp"><span class="word">站内信</span></a>
+		<a href="user/showMessage.jsp"><span class="word">站内信</span></a>
 		<input type="radio" id="radio_control_3" name="radio_set" />
 		<a href="allProduct.jsp"><span class="word">商品</span></a>
 		<input type="radio" id="radio_control_4" name="radio_set" />
 		<a href="#"><span class="word">游戏专区</span></a>
 		<input type="radio" id="radio_control_5" name="radio_set" />
-		<a href="geRenZhongXin.jsp"><span class="word">个人中心</span></a>
+		<a href="user/geRenZhongXin.jsp"><span class="word">个人中心</span></a>
 		<input type="radio" id="radio_control_6" name="radio_set" />
-		<a href="main.jsp"><span class="word">客服中心</span></a>
+		<a href="user/main.jsp"><span class="word">客服中心</span></a>
 	</div>
 </div>
 
