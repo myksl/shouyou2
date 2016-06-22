@@ -117,18 +117,18 @@ label{
 		<div class="input_outer">
 			<span class="u_user">账号</span>
 			<s:textfield name="name" class="text" onFocus=" if(this.value=='输入ID或用户名登录') this.value=''" onBlur="if(this.value=='') this.value='输入ID或用户名登录'" style="color: #FFFFFF !important" />
-			<s:fielderror cssStyle="color: red">
+		</div>
+		<s:fielderror cssStyle="color: red">
            		<s:param>name</s:param>
        		</s:fielderror><br>
-		</div>
 		<div class="input_outer">
 			<span class="us_uer">密码</span>
 			<label class="l-login login_password" style="color: rgb(255, 255, 255);display: block;"></label>
 			<s:password name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;" onFocus="$('.login_password').hide()" onBlur="if(this.value=='') $('.login_password').show()" value="" type="password"/>
-			<s:fielderror cssStyle="color: red">
+		</div>
+		<s:fielderror cssStyle="color: red">
            		<s:param>password</s:param>
        		</s:fielderror><br>
-		</div>
 		<div class="mb2"><s:submit class="submit" value="登录"/></div>
 	</s:form>
 </div>

@@ -56,11 +56,17 @@
 			<result name="success">content.jsp</result>
 		</action>
 		<action name="leave" class="server" method="leave">
-			<result name="success">index.jsp</result>
+			<result name="success">shouYe.jsp</result>
 		</action>
 		<action name="DeleteMessage" class="messages" method="delete">
 			<result name="success">showMessage.jsp</result>
 		</action>
+		<action name="UpdateUser" class="login" method="update">
+			<result name="success">geRenZhongXin.jsp</result>
+			<result name="input">updateUser.jsp</result>
+		</action>
+	</package>
+	<package name = "action2" extends = "struts-default" namespace="/admin">
 		<action name="AdminLogin" class="adminLogin" method="login">
 			<result name="success">user.jsp</result>
 			<result name="input">aLogin.jsp</result>
@@ -69,10 +75,5 @@
 			<result name="success">user.jsp</result>
 			<result name="input">aLogin.jsp</result>
 		</action>
-		<action name="UpdateUser" class="login" method="update">
-			<result name="success">geRenZhongXin.jsp</result>
-			<result name="input">updateUser.jsp</result>
-		</action>
 	</package>
-	
 </struts>

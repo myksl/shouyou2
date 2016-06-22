@@ -2,8 +2,8 @@
 <html>
 <head>
 <title>聊天室</title>
-<link href="CSS/style.css" rel="stylesheet">
-<script language="javascript" src="JS/AjaxRequest.js"></script>
+<link href="css/style.css" rel="stylesheet">
+<script language="javascript" src="js/AjaxRequest.js"></script>
 <script language="javascript">
 window.setInterval("showContent();",1000);
 var sysBBS="<span style='font-size:14px; line-height:30px;'>欢迎使用交易猫客服系统，正在与客服对话</span><br><span style='line-height:22px;'>";
@@ -62,7 +62,6 @@ window.onbeforeunload=function(){    		//当用户单击浏览器中的关闭按
 	}
 	function Exit(){
 		window.location.href="leave?username=${User}";
-		alert("欢迎您下次光临！");
 	}
 </script>
 <script type="text/javascript">
@@ -78,36 +77,41 @@ window.onbeforeunload=function(){    		//当用户单击浏览器中的关闭按
 }
 	
 </script>
-	
+
 </head>
+
 <body>
-<table width="778" height="150" border="0" align="center" cellpadding="0" cellspacing="0" background="image/top.jpg">
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-</table>
-<table width="778" height="276" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td width="613"  height="200px" valign="top" background="image/main_bj.jpg" bgcolor="#FFFFFF" style="padding:5px; ">
-	<div style="height:290px; overflow:hidden" id="content">聊天内容</div>
-	</td>
+	<section>
+		<table background="image/2.jpg" class="table_one">
+			<tr>
+				<td><span>顾客至上</span><br><span>用心沟通</span></td>
+			</tr>
+		</table>
 
-  </tr>
-</table>
-<table width="778" height="95" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#D6D3CE" background="image/bottom.jpg">
+		<table width="778" height="276" border="0" align="center" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="613" height="200px" valign="top" bgcolor="lightcyan" style="padding:5px;border:0;">
+					<div id="content">聊天内容</div>
+				</td>
+			</tr>
+		</table>
 
-<form action="" name="form1" method="post" >
-  <tr>
-    <td width="21" height="30" align="left">&nbsp;</td>
-    <td width="549" align="left">
-    
-    <input name="content1" type="text" size="70" onKeyDown="if(event.keyCode==13 && event.ctrlKey){send();}">
-      <input name="Submit2" type="button" class="btn_grey" value="发送" onClick="send()"></td>
-    <td align="right"><input name="button_exit" type="button" class="btn_grey" value="结束对话" onClick="Exit()"></td>
-    <td align="center">&nbsp;</td>
-    <td width="19" align="left"><input name="scrollScreen" type="checkbox" class="noborder" id="scrollScreen" onClick="checkScrollScreen()" value= "1" checked></td>
-  </tr>
-</form>
-</table>
+		<table width="778" height="95" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#D6D3CE" background="image/6.jpg">
+			<form action="" name="form1" method="post">
+				<tr>
+					<td width="21" height="30" align="left">&nbsp;</td>
+					<td width="600px" align="left">
+						<input name="content1" type="text" size="70" onKeyDown="if(event.keyCode==13 && event.ctrlKey){send();}">
+						<input name="Submit2" type="button" class="btn_grey" value="发送" onClick="send()"></td>
+					<td ><input name="button_exit" type="button" class="btn_grey" id="exit" value="结束对话" onClick="Exit()"></td>
+					<td align="center">&nbsp;</td>
+					<td width="40" align="right">
+						<input name="scrollScreen" type="checkbox" class="noborder" id="scrollScreen" onClick="checkScrollScreen()" value="1" checked>
+					</td>
+				</tr>
+			</form>
+		</table>
+	</section>
 </body>
+
 </html>

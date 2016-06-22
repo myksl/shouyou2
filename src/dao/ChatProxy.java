@@ -48,10 +48,10 @@ public class ChatProxy {
 		return flag;
 	}
 
-	public boolean delete(String s) throws Exception {
+	public boolean delete(Chat chat) throws Exception {
 		boolean flag = false;
 		try {
-			chatHow.delete(s);
+			chatHow.delete(chat);
 		} catch (Exception e) {
 			
 		}
