@@ -134,7 +134,7 @@ public class Login extends ActionSupport{
 	
 	public void validateUpdate(){
 		if(!password.equals(password2)){
-			addFieldError("name", "用户已存在，请重新输入");
+			addFieldError("password", "两次密码输入不一致");
 		}
 	}
 }
