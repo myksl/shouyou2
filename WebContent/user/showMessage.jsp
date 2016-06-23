@@ -215,11 +215,11 @@
 					<%	
 						}else{
 					%>
-						<a href="showProduct.jsp?index=<%=index-1 %>">上一页</a>
+						<a href="showMessage.jsp?index=<%=index-1 %>">上一页</a>
 					<%
 						}
-						int count =ProductFactory.get().count();
-						count =count/8+1;
+						int count =MessageFactory.get().count(name);
+						count =count/6+1;
 						int i =0;
 						if((index-5)<0){
 							i=0;
@@ -229,7 +229,7 @@
 						for(int x=i;x<Math.min(Math.max(10, index+5), count);x++){
 							if(x!=index-1){
 					%>
-						<a href="showProduct.jsp?index=<%=x+1 %>"><%=x+1 %></a>	
+						<a href="showMessage.jsp?index=<%=x+1 %>"><%=x+1 %></a>	
 					<% 		
 							}else{
 					%>
@@ -245,7 +245,7 @@
 					<%	
 						}else{
 					%>
-						<a href="showProduct.jsp?index=<%=index+1 %>">下一页</a>
+						<a href="showMessage.jsp?index=<%=index+1 %>">下一页</a>
 					<%
 						}
 					%>

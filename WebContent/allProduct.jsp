@@ -120,13 +120,16 @@
 
 <div class="product">
 	<div class="product_title1">
-		<span>价格选择：<a href="#">30元以下 </a><a href="#">30-100元 </a><a href="#">100-300元 </a><a href="#">300-500元 </a><a href="#">500以上</a></span>
+		<span>价格选择：<a href="allProduct.jsp?type=BT&start=0&end=30">30元以下 </a>
+		<a href="allProduct.jsp?type=BT&start=30&end=100">30-100元 </a>
+		<a href="allProduct.jsp?type=BT&start=100&end=300">100-300元 </a><a href="allProduct.jsp?type=BT&start=300&end=500">300-500元 </a>
+		<a href="allProduct.jsp?type=BT&start=500&end=100000">500以上</a></span>
 	</div>
 	<div class="product_title2" style="text-align: center;">
 			<span>所有商品</span>
 	</div>
 	<div class="product_title3">
-			<span><a href="#">最新发布</a><a href="#">按单价高到低排序</a><a href="#">按价格高到低排序</a><a href="#">按价格低到高排序</a></span>
+			<span><a href="#">最新发布</a><a href="">按单价高到低排序</a><a href="#">按价格高到低排序</a><a href="allProduct.jsp?type=up">按价格低到高排序</a></span>
 	</div>
 	<div class="productInclude">
 		<div class="head">
@@ -138,21 +141,35 @@
 		</div>
 		<% 
 			int index=1;
+			String type ="";
+			int start = 0;
+			int end = 0;
+			if(request.getParameter("type")!=null){
+				type= request.getParameter("type");
+			}
 			if(request.getParameter("index")!=null){
 				index = new Integer(request.getParameter("index"));
 			}
 			List<Product> list = null;
-			list = ProductFactory.get().findAll(index);
+			if(type.equals("")){
+				list = ProductFactory.get().findAll(index);
+			}else if(type.equals("BT")){
+				start = new Integer(request.getParameter("start"));
+				end = new Integer(request.getParameter("end"));
+				list = ProductFactory.get().findAllBT(index, start,end);
+			}else{
+				list =  ProductFactory.get().findAllUp(index);
+			}
 			for(Product product:list){
 		%>						
 		<div class="main">
 			<div class="title">
-				<span><a href="product.jsp?listIndex=<%=product.getListIndex()%>"><%= 
+				<span ><a class="titleT" href="product.jsp?listIndex=<%=product.getListIndex()%>"><%= 
 								product.getProductName()%></a></span>
 				<span>所属游戏：<%=product.getGame() %></span>
 			</div>
 			<div class="price">
-				<span><%=product.getPrice() %></span>
+				<span style="font-size: 16px;"><%=product.getPrice() %></span>
 			</div>
 			<div class="remaining">
 				<span><%=product.getRemaining()%></span>
@@ -169,10 +186,15 @@
 		<%	
 			}else{
 		%>
-			<a href="shouYe.jsp?index=<%=index-1 %>">上一页</a>
+			<a href="allProduct.jsp?index=<%=index+1 %>&type=<%=type%>&start=<%=start%>&end=<%=end%>">上一页</a>
 		<%
 			}
-			int count =ProductFactory.get().count();
+			int count =0;
+			if(type.equals("BT")){
+				count = ProductFactory.get().countByBt(start,end);
+			}else{
+				count = ProductFactory.get().count();
+			}
 			count =count/8+1;
 			int i =0;
 			if((count-10)<0){
@@ -183,7 +205,7 @@
 			for(int x=i;x<count;x++){
 				if(x!=index-1){
 		%>
-			<a href="shouYe.jsp?index=<%=x+1 %>"><%=x+1 %></a>	
+			<a href="allProduct.jsp?index=<%=index+1 %>&type=<%=type%>&start=<%=start%>&end=<%=end%>"><%=x+1 %></a>	
 		<% 		
 				}else{
 		%>
@@ -199,7 +221,7 @@
 		<%	
 			}else{
 		%>
-			<a href="shouYe.jsp?index=<%=index+1 %>">下一页</a>
+			<a href="allProduct.jsp?index=<%=index+1 %>&type=<%=type%>&start=<%=start%>&end=<%=end%>">下一页</a>
 		<%
 			}
 		%>

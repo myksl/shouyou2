@@ -17,4 +17,5 @@ public interface ProductDao {
 	public List<Product> findAllUp( int offset, int size)throws Exception;
 	public long count()throws Exception;
 	public long countByOwn(String s)throws Exception;
+	public long countByBt(int start,int end)throws Exception;
 }

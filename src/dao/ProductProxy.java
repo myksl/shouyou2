@@ -138,4 +138,13 @@ public class ProductProxy {
 		}
 		return count;
 	}
+	public int countByBt(int start,int end)throws Exception{
+		int count= 0;
+		try {
+			count=(int) productHow.countByBt(start, end);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

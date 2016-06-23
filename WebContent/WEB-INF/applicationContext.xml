@@ -15,6 +15,12 @@
 	<bean id="login" class="action.Login" scope="prototype">
 		<property name="userProxy" ref="userProxy"></property>
 	</bean>
+	<bean id="delete" class="action.Delete" scope="prototype">
+		<property name="productProxy" ref="productProxy"></property>
+		<property name="product" ref="product"></property>
+		<property name="messageProxy" ref="messageProxy"></property>
+		<property name="message" ref="message"></property>	
+	</bean>
 	<bean id="limit" class="action.Limit" scope="prototype">
 		<property name="userProxy" ref="userProxy"></property>
 	</bean>

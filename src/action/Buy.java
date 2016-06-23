@@ -10,6 +10,9 @@ import java.util.Date;
 
 
 
+
+import com.opensymphony.xwork2.ActionSupport;
+
 import dao.BuyOrderProxy;
 import dao.MessageProxy;
 import dao.ProductProxy;
@@ -19,7 +22,7 @@ import vo.Message;
 import vo.Product;
 import vo.SellOrder;
 
-public class Buy {
+public class Buy extends ActionSupport{
 	private String nowUser;
 	private String own;
 	private int listIndex;
@@ -198,5 +201,19 @@ public class Buy {
 		}
 		return "success";
 		
+	}
+	
+	public void validateBuy(){
+		Product product = null;
+		try {
+			product = productProxy.findById(productListIndex);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		if(product.getOwn().equals(nowUser)){
+			addFieldError("product", "你不能购买自己的商品");
+		}else if(product.getRemaining()<=0){
+			addFieldError("product", "商品已经售完");
+		}
 	}
 }

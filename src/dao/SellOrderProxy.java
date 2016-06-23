@@ -7,6 +7,7 @@ import vo.SellOrder;
 
 public class SellOrderProxy {
 	private SellOrderHow sellOrderHow;
+	private static int SIZE = 6;
 	
 	public SellOrderHow getSellOrderHow() {
 		return sellOrderHow;
@@ -47,14 +48,20 @@ public class SellOrderProxy {
 			return null;
 		}
 	}
-	public List<SellOrder> findByOwn(String s) throws Exception {
+	public List<SellOrder> findByOwn(String s,int offset) throws Exception {
+		offset = (offset-1)*6;
 		List<SellOrder> list =null;
 		try{
-			list = sellOrderHow.findByOwn(s);
+			list = sellOrderHow.findByOwn(s,offset,SIZE);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	public int countByOwn(String s)throws Exception {
+		int count = 0;
+		count = (int) sellOrderHow.countByOwn(s);
+		return count;
 	}
 	
 }

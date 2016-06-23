@@ -193,28 +193,6 @@ public class Sell extends ActionSupport{
 		}
 		return "sell";
 	}
-	public String delete(){
-		boolean flag = false;
-		product.setListIndex(listIndex);
-		SimpleDateFormat sdf =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
-		String time= sdf.format(new Date());
-		message.setTitle(productName+"已经删除");
-		message.setTime(time);
-		message.setType("商品");
-		message.setText("尊敬的用户:亲爱的用户，您发布的"+productName+"已经删除");
-		message.setOwn(own);
-		message.setSee("false");
-		try {
-			flag = productProxy.delete(product);
-			flag = messageProxy.create(message);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(flag){
-			return "success";
-		}
-		return "input";
-	}
 	public void validateSell(){
 		Pattern p = Pattern.compile("敏感词");
 		if(p.matcher(information).find()){

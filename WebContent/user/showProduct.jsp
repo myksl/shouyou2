@@ -263,7 +263,7 @@
 					<%
 						}
 						int count =ProductFactory.get().count();
-						count =count/8+1;
+						count =count/6+1;
 						int i =0;
 						if((index-5)<0){
 							i=0;

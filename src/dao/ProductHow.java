@@ -81,7 +81,7 @@ public class ProductHow extends HibernateDaoSupport implements ProductDao{
 		return(List<Product>) getHibernateTemplate().execute(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException {
-				List<Product> result = session.createQuery("select product from Product as product where own !=null ")
+				List<Product> result = session.createQuery("select product from Product as product where own !=null and remaining >0 ")
 						.setFirstResult(offset).setMaxResults(size).list();
 				return result;
 			}
@@ -93,7 +93,7 @@ public class ProductHow extends HibernateDaoSupport implements ProductDao{
 	}
 	@Override
 	public long count() throws Exception {
-		return (Long) getHibernateTemplate().find("select count(*) from Product as product where own!=null").get(0);
+		return (Long) getHibernateTemplate().find("select count(*) from Product as product where own!=null and remaining >0").get(0);
 	}
 	@Override
 	public List<Product> findByName(final int offset,final int size,final String s) throws Exception {
@@ -109,6 +109,9 @@ public class ProductHow extends HibernateDaoSupport implements ProductDao{
 	@Override
 	public long countByOwn(String s) throws Exception {
 		return (Long) getHibernateTemplate().find("select count(*) from Product as product where own =?",s).get(0);
+	}
+	public long countByBt(int start,int end){
+		return (Long)getHibernateTemplate().find("select count(*) from Product as product where own !=null and price between ? and ?", start,end).get(0);
 	}
 	
 }

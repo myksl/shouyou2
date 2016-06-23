@@ -214,9 +214,12 @@
 						</ul>
 					</div>
 					<% 
-
+						int index=1;
+						if(request.getParameter("index")!=null){
+							index = new Integer(request.getParameter("index"));
+						}
 						List<BuyOrder> list = null;
-						list = BuyOrderFactory.get().findByOwn(name);
+						list = BuyOrderFactory.get().findByOwn(name,index);
 						for(BuyOrder buyOrder:list){
 					%>						
 						<div class="booking-table">
@@ -238,8 +241,52 @@
 							</ul>
 						</div>
 						<%
-						}
+							}
 						%>
+					</div>
+					<div class="index">
+					<%
+						if(index==1){
+					%>
+						无上页
+					<%	
+						}else{
+					%>
+						<a href="showBuyOrder.jsp?index=<%=index-1 %>">上一页</a>
+					<%
+						}
+						int count =BuyOrderFactory.get().countByOwn(name);
+						count =count/6+1;
+						int i =0;
+						if((index-5)<0){
+							i=0;
+						}else{
+							i=index-5;
+						}
+						for(int x=i;x<Math.min(Math.max(10, index+5), count);x++){
+							if(x!=index-1){
+					%>
+						<a href="showBuyOrder.jsp?index=<%=x+1 %>"><%=x+1 %></a>	
+					<% 		
+							}else{
+					%>
+							<%=x+1 %>
+					<% 			
+							}
+						}
+					%>
+					<%
+						if(index==count){
+					%>
+						无下页
+					<%	
+						}else{
+					%>
+						<a href="showBuyOrder.jsp?index=<%=index+1 %>">下一页</a>
+					<%
+						}
+					%>
+				</div>
 				</div>
 			</div>
 		</div>
