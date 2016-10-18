@@ -11,7 +11,9 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.UserProxy;
 import factory.UserFactory;
-
+/** Struts2的Action类 负责用户的登录和注册
+ *
+ */
 public class Login extends ActionSupport{
 	private String name;
 	private String password;
