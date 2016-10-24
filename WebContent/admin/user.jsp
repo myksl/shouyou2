@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="factory.UserFactory"%>
 <%@page import="vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -48,7 +49,7 @@
                     <table class="search-tab">
                         <tr>
                             <th width="70">关键字:</th>
-                            <td><input class="common-text" placeholder="关键字" name="name"  type="text"></td>
+                            <td><input class="common-text" placeholder="关键字" name="key"  type="text"></td>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>
                     </table>
@@ -68,9 +69,12 @@
                         </tr>
                         <%
                         	User user =null;
-                        	String name = request.getParameter("name");
+                        	List<User> list = null;
+                        	String name = request.getParameter("key");
                         	if(name!=null){
                         		user = UserFactory.get().findById(name);
+                        	}else{
+                        		list = UserFactory.get().findAll(1);
                         	}
                         	if(name!=null){
                         %>
@@ -83,6 +87,19 @@
                             	<a href="Limit?name=<%=user.getName() %>&state=ok">解封</a></td> 
                         </tr>
                         <% 
+                        	}else{
+                        		for(User x:list){
+                        %>
+                      	<tr>
+                            <td><%=x.getName() %></td> 
+                            <td><%=x.getPhone() %></td>
+                            <td><%=x.getQq() %></td> 
+                            <td><%=x.getState() %></td> 
+                            <td><a href="Limit?name=<%=x.getName() %>&state=limit">封禁</a> &nbsp; &nbsp;
+                            	<a href="Limit?name=<%=x.getName() %>&state=ok">解封</a></td> 
+                        </tr>
+                        <%
+                        		}
                         	}
                         %>
                     </table>

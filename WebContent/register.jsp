@@ -56,38 +56,21 @@ function email(){
 		<div id="registerRight">
 		<span class="title">提示：如果你已有UC账号，请直接 <a href="login.jsp">登录</a></span>
 		<s:form class="registerForm" action="register" validate="true">
-			登录账号 ：<s:textfield class="text" label="用户名" name ="name"/>
+			登录账号 ：<s:textfield class="text" label="用户名" name ="user.name"/>
 			<s:fielderror cssStyle="color: red">
-           		<s:param>name</s:param>
+           		<s:param>user.name</s:param>
       		</s:fielderror><br><br>
-			设置密码 ：<s:password class="text" label="输入密码" name="password"/>
+			设置密码 ：<s:password class="text" label="输入密码" name="user.password"/>
 			<s:fielderror cssStyle="color: red">
-           		<s:param>password</s:param>
+           		<s:param>user.password</s:param>
        		</s:fielderror><br><br>
 			确认密码 ：<s:password class="text" label="确认密码" name="password2"/><br><br>
-			Q Q 号码 ：<s:textfield class="text" label="QQ" name ="qq"/><br><br>
-			电话号码 ：<s:textfield class="text" label="电话号码" name ="phone"/><br><br>
+			Q Q 号码 ：<s:textfield class="text" label="QQ" name ="user.qq"/><br><br>
+			电话号码 ：<s:textfield class="text" label="电话号码" name ="user.phone"/><br><br>
 			<s:submit class="submit"  value="注册"/>
 		</s:form>
 		</div>
 		
-		<div id="registerRight2">
-		<span>提示：如果你已有UC账号，请直接 <a href="login.jsp">登录</a></span>
-		<s:form class="registerForm" action="register" validate="true">
-			登录账号 ：<s:textfield class="text" label="用户名" name ="name"/>
-			<s:fielderror cssStyle="color: red">
-           		<s:param>name</s:param>
-      		</s:fielderror><br><br>
-			设置密码 ：<s:password class="text" label="输入密码" name="password"/>
-			<s:fielderror cssStyle="color: red">
-           		<s:param>password</s:param>
-       		</s:fielderror><br><br>
-			确认密码 ：<s:password class="text" label="确认密码" name="password2"/><br><br>
-			Q Q 号码 ：<s:textfield class="text" label="QQ" name ="qq"/><br><br>
-			电话号码 ：<s:textfield class="text" label="电话号码" name ="phone"/><br><br>
-			<s:submit class="submit"  value="注册"/>
-		</s:form>
-		</div>
 	</div>
 </div>
 

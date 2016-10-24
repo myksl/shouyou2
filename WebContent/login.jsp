@@ -13,7 +13,7 @@
 <body>
 <div class="top">
 	<div class="topInclude">
-		<a href="#">
+		<a href="shouYe.jsp">
 			<img src="./image/logo4.png">
 			<span>专业手游交易平台</span>
 		</a>
@@ -28,14 +28,14 @@
 			<div class="loginMain">
 				<s:form action="login" >
 				<h3>账号</h3><br>
-				<s:textfield class="text" name="name" label="用户名"/> <br>
+				<s:textfield class="text" name="user.name" label="用户名"/> <br>
 				<s:fielderror cssStyle="color: red">
-              		<s:param>name</s:param>
+              		<s:param>user.name</s:param>
         		</s:fielderror>
         		<h3>密码</h3><br>
-				<s:password class="text" name="password" label=" 密 码 "/><br>
+				<s:password class="text" name="user.password" label=" 密 码 "/><br>
 				<s:fielderror cssStyle="color: red">
-              		<s:param>password</s:param>
+              		<s:param>user.password</s:param>
         		</s:fielderror><br>
 				<s:submit class="button" value="登录"></s:submit>
 			</s:form>	
